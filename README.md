@@ -12,7 +12,7 @@ If you want to use basso clustering algorithm, extract `include/basso-0.5.tar.gz
 ## Execute the code
 
 The code is available in the folder `biclusteringVisualization/`
-Code examples are available in `demo.py` and `demoAdvanced.py`
+Code examples are available in `demo.py`, `demoAdvanced.py` and `demoAdvanced2.py`
 
 ## Documentation
 
