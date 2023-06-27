@@ -18,8 +18,8 @@ showObjectiveFunctionValues = True
 visualizeClustering(
     inputFile=inputFile,
     outputFile=outputFile,
-    rowClustersFile=rowCluster,
-    columnClustersFile=columnCluster,
+    rowClusters=rowCluster,
+    columnClusters=columnCluster,
     orderingMethod=orderingMethod,
     heuristicTime=heuristicTime,
     plotUnorderedMatrix=plotUnorderedMatrix,

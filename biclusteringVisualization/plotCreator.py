@@ -9,7 +9,9 @@ from ortools.constraint_solver import pywrapcp
 """
 This file contains the implementation of the TSPHeuristic algorithm from our paper
 
-(to be published)
+Thibault Marette, Pauli Miettinen, Stefan Neumann:
+Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. (to be published)
+
 
 It also contains an implementation by Thibault Marette and Stefan Neumann of the
 ADVISER algorithm from the following paper:
@@ -58,18 +60,22 @@ def visualizeClustering(
     inputFile,
     outputFile,
     clusteringAlgorithm="PCV",
-    rowClustersFile="",
-    columnClustersFile="",
     nbClusters=5,
     orderingMethod="TSPheuristic",
+    rowClusters="",
+    columnClusters="",
+    inputIsList=False,
     heuristicTime=20,
     plotUnorderedMatrix=False,
     showObjectiveFunctionValues=False,
 ):
     A = np.loadtxt(inputFile)
-    if rowClustersFile != "" and columnClustersFile != "":
+    if inputIsList:
+        pass
+    elif rowClustersFile != "" and columnClustersFile != "":
         rowClusters = readClusterFromFile(rowClustersFile)
         columnClusters = readClusterFromFile(columnClustersFile)
+    
     else:
         [rowClusters, columnClusters] = cluster(A, nbClusters, algo=clusteringAlgorithm)
     " visualize the matrix "
