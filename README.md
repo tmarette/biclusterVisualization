@@ -7,7 +7,8 @@ Thibault Marette, Pauli Miettinen, Stefan Neumann:
 Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. (to be published)
 
 
-If you want to use basso clustering algorithm, extract `include/basso-0.5.tar.gz` and follow the setup instructions
+If you want to use basso clustering algorithm, extract `includes/basso-0.5.tar.gz` and follow the setup instructions.
+See `requirements.txt` for Python packages requirements.
 
 ## Execute the code
 
