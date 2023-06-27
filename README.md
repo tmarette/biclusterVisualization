@@ -1,6 +1,6 @@
 # Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations
 
-README updated on the 20/06/2023
+README updated on the 27/06/2023
 
 This archive contains the code to visualize biclusters from the paper (to be published)
 Thibault Marette, Pauli Miettinen, Stefan Neumann:
