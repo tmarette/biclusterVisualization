@@ -72,9 +72,9 @@ def visualizeClustering(
     A = np.loadtxt(inputFile)
     if inputIsList:
         pass
-    elif rowClustersFile != "" and columnClustersFile != "":
-        rowClusters = readClusterFromFile(rowClustersFile)
-        columnClusters = readClusterFromFile(columnClustersFile)
+    elif rowClusters != "" and columnClusters != "":
+        rowClusters = readClusterFromFile(rowClusters)
+        columnClusters = readClusterFromFile(columnClusters)
     
     else:
         [rowClusters, columnClusters] = cluster(A, nbClusters, algo=clusteringAlgorithm)

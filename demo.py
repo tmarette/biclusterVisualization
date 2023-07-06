@@ -6,8 +6,8 @@ Basic demonstration, easy to use
 """
 
 
-inputFile = "demo/example1.csv"
-outputFile = "example1.pdf"
+inputFile = "demo/basic.csv"
+outputFile = "basic.pdf"
 
 visualizeClustering(
     inputFile=inputFile,
