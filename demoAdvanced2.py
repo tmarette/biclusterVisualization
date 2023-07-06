@@ -6,10 +6,9 @@ Advanced demonstration, hte clustering is given as a python list
 """
 
 inputFile = "demo/advanced.csv"
-rowCluster = [[0,1,2,4],[1,2,3]]#[[0, 1, 4], [2, 3], [0, 1, 2, 4]] #
-columnCluster = [[0,1,5,6,8],[2,3,4,5,6,9]]#[[0, 1, 5, 6, 9], [2, 3, 4, 7, 8], [1, 5, 6, 8]]#
+rowCluster = [[0, 1, 2, 4], [1, 2, 3]]
+columnCluster = [[0, 1, 5, 6, 8], [2, 3, 4, 5, 6, 9]]
 inputIsList = True
-
 
 
 outputFile = "advanced2.pdf"

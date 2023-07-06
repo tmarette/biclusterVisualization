@@ -75,7 +75,7 @@ def visualizeClustering(
     elif rowClusters != "" and columnClusters != "":
         rowClusters = readClusterFromFile(rowClusters)
         columnClusters = readClusterFromFile(columnClusters)
-    
+
     else:
         [rowClusters, columnClusters] = cluster(A, nbClusters, algo=clusteringAlgorithm)
     " visualize the matrix "

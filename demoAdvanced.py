@@ -9,7 +9,7 @@ inputFile = "demo/advanced.csv"
 rowCluster = "demo/advanced_rowClusters.csv"
 columnCluster = "demo/advanced_columnClusters.csv"
 
-outputFile = "demoAdvanced.pdf"
+outputFile = "advanced.pdf"
 orderingMethod = "TSPheuristic"
 heuristicTime = 4
 plotUnorderedMatrix = True
