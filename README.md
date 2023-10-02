@@ -2,10 +2,29 @@
 
 README updated on the 27/06/2023
 
-This archive contains the code to visualize biclusters from the paper (to be published)
-Thibault Marette, Pauli Miettinen, Stefan Neumann:
-Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. (to be published)
+This archive contains the code to visualize biclusters, as described in the paper:
 
+Thibault Marette, Pauli Miettinen, and Stefan Neumann (2023). Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. In <em>Machine Learning and Knowledge Discovery in Databases: Research Track - European Conference, ECML PKDD 2023, Turin, Italy, September 18-22, 2023, Proceedings, Part I</em> (pp. 743–758). Springer.
+
+You are free to use and edit the code, as long as you cite us using the bibtex snippet below:
+
+```
+@inproceedings{marette2023visualizing,
+  author       = {Thibault Marette and
+                  Pauli Miettinen and
+                  Stefan Neumann},
+  title        = {Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations},
+  booktitle    = {Machine Learning and Knowledge Discovery in Databases: Research Track
+                  - European Conference, {ECML} {PKDD} 2023, Turin, Italy, September
+                  18-22, 2023, Proceedings, Part {I}},
+  series       = {Lecture Notes in Computer Science},
+  volume       = {14169},
+  pages        = {743--758},
+  publisher    = {Springer},
+  year         = {2023},
+  doi          = {10.1007/978-3-031-43412-9\_44},
+}
+```
 
 If you want to use basso clustering algorithm, extract `includes/basso-0.5.tar.gz` and follow the setup instructions.
 See `requirements.txt` for Python packages requirements.
