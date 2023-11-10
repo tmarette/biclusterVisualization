@@ -59,18 +59,26 @@ def readClusterFromFile(inputFile):
 def visualizeClustering(
     inputFile,
     outputFile,
-    clusteringAlgorithm="PCV",
+    clusteringAlgorithm="basso",
     nbClusters=5,
     orderingMethod="TSPheuristic",
     rowClusters="",
     columnClusters="",
-    inputIsList=False,
     heuristicTime=20,
     plotUnorderedMatrix=False,
     showObjectiveFunctionValues=False,
+    printPermutations=False,
+    customColorScheme=True,
 ):
-    A = np.loadtxt(inputFile)
-    if inputIsList:
+    if type(inputFile) == str:
+        A = np.loadtxt(inputFile)
+    else:
+        A = np.array(inputFile)
+    if type(rowClusters) != type(columnClusters):
+        raise Exception(
+            "Row and column clusters should have the same type (either both Python lists or files)"
+        )
+    elif type(rowClusters) == list:
         pass
     elif rowClusters != "" and columnClusters != "":
         rowClusters = readClusterFromFile(rowClusters)
@@ -89,6 +97,8 @@ def visualizeClustering(
         outputfile=outputFile,
         plotUnorderedMatrix=plotUnorderedMatrix,
         showObjectiveFunctionValues=showObjectiveFunctionValues,
+        printPermutations=printPermutations,
+        customColorScheme=customColorScheme,
     )
 
 
@@ -102,6 +112,8 @@ def plotClusteredMatrix(
     transpose=False,
     outputfile=None,
     showObjectiveFunctionValues=False,
+    printPermutations=False,
+    customColorScheme=True,
 ):
     if transpose:
         plotClusteredMatrix(
@@ -112,6 +124,8 @@ def plotClusteredMatrix(
             plotUnorderedMatrix=plotUnorderedMatrix,
             transpose=False,
             outputfile=outputfile,
+            printPermutations=printPermutations,
+            customColorScheme=customColorScheme,
         )
         return
 
@@ -168,11 +182,19 @@ def plotClusteredMatrix(
         left=False,
         labelleft=False,
     )
+    permutationRow = blockBlockMatrix.getFinalPermutation(ROW)
+    permutationCol = blockBlockMatrix.getFinalPermutation(COL)
     blockBlockMatrix.plotOriginalMatrix(
         axs=ax2,
-        permutationRow=blockBlockMatrix.getFinalPermutation(ROW),
-        permutationCol=blockBlockMatrix.getFinalPermutation(COL),
+        permutationRow=permutationRow,
+        permutationCol=permutationCol,
+        useColorScheme=customColorScheme,
     )
+
+    if printPermutations:
+        print(f"Final row permutation: {permutationRow}")
+        print(f"Final column permutation: {permutationCol}")
+
     plt.axis("off")
     fig2.savefig(
         outputfile,
@@ -256,6 +278,8 @@ class NewBlockBlockMatrix:
             len(self.rowClusters[i]) * len(self.columnClusters[i])
             for i in range(self.nbClusters)
         ]
+        if self.rowClusters == [] or self.columnClusters == []:
+            raise (Exception("Row and/or column clusters are empty."))
         # blocks: block view of the matrix, the rows and columns are grouped together in a block when they belong to the same clusters
         self.rowBlocks = createBlocks(self.rowClusters)
         self.columnBlocks = createBlocks(self.columnClusters)
@@ -300,8 +324,8 @@ class NewBlockBlockMatrix:
 
         self.rowFosterFamilies = self.getFosterFamilies(ROW)
         self.columnFosterFamilies = self.getFosterFamilies(COL)
-        self.rowOrphanBlocks = createOrphanBlocks(self.rowFosterFamilies)
-        self.columnOrphanBlocks = createOrphanBlocks(self.columnFosterFamilies)
+        self.rowOrphanBlocks = []  # createOrphanBlocks(self.rowFosterFamilies)
+        self.columnOrphanBlocks = []  # createOrphanBlocks(self.columnFosterFamilies)
 
         # block adjacency matrix
         self.C = (
@@ -632,6 +656,7 @@ class NewBlockBlockMatrix:
         elif method == "greedyDemerit":
             self.greedyDemerit2D()
         elif "random" in method:
+            print("Random")
             np.random.shuffle(self.rowBlocksPermutation)
             np.random.shuffle(self.columnBlocksPermutation)
         else:
@@ -1428,17 +1453,20 @@ class NewBlockBlockMatrix:
     ##############################   	  Plot matrix   	 #############################################
     #######################################################################################################
 
-    def plotOriginalMatrix(self, axs=None, permutationRow=None, permutationCol=None):
+    def plotOriginalMatrix(
+        self, axs=None, permutationRow=None, permutationCol=None, useColorScheme=True
+    ):
         mat = self.returnOriginalMatrix(permutationRow, permutationCol)
         for i in range(self.rows):
             for j in range(self.cols):
                 mat[i, j] = 1 if mat[i, j] != 0 else 0
-        for i in range(self.rows):
-            for j in range(self.cols):
-                if mat[i, j] != 0 and mat[i, j] != 1:
-                    print(mat[i, j], i, j)
+
         rp = self.getFinalPermutation(ROW)
         cp = self.getFinalPermutation(COL)
+        if not useColorScheme:
+            axs.matshow(mat)
+            return
+
         for i in range(len(self.rowClusters)):
             cr, cl = self.rowClusters[i], self.columnClusters[i]
             for i in cr:
@@ -1467,6 +1495,9 @@ class NewBlockBlockMatrix:
                 for i in indexes:
                     mat[i, orphan] = 5 if mat[i, orphan] == 1 else 4
         hexcolors = []
+        np.random.shuffle(mat)
+        np.random.shuffle(mat.T)
+        np.random.shuffle(mat)
         if self.rowOrphanBlocks == [] and self.columnOrphanBlocks == []:
             hexcolors += [
                 "#a6cee3",
@@ -1485,7 +1516,6 @@ class NewBlockBlockMatrix:
             ]
 
         colors = [mplcolors.to_rgb(color) for color in hexcolors]
-
         cmap = mplcolors.ListedColormap(colors)
         if axs == None:
             print(mat)

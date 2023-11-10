@@ -7,8 +7,10 @@ Thibault Marette, Pauli Miettinen, Stefan Neumann:
 Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. (to be published)
 
 
-If you want to use basso clustering algorithm, extract `includes/basso-0.5.tar.gz` and follow the setup instructions.
-See `requirements.txt` for Python packages requirements.
+If you want to use basso clustering algorithm, extract `includes/basso-0.5.tar.gz`. Once the archive is extracted, follow the installation instructions at `includes/basso-0.5/README`.
+
+
+For Python packages requirements, see `requirements.txt`.
 
 ## Execute the code
 
@@ -50,15 +52,11 @@ visualizeClustering.visualizeClustering(
 
    location of the file for the clustering of the rows. Optionnal (only use if you do not want to use clustering algorithm)
 
-- `columnClusters: string`
+- `columnClusters: string | list`
 
    location of the file for the clustering of the columns. Optionnal (only use if you do not want to use clustering algorithm)
 
-- `inputIsList: boolean`
-
-   Set to `True` if `rowClusters` and `columnClusters` are python lists. The default value is `False`, excpecting path to the clustering files.
- 
-- `orderingMethod: string`
+- `orderingMethod: string | list`
  
     Algorithm to use for the ordering of the matrix in the visualization. Default value is TSPHeuristic. ADVISER, as well as the greedy algorithms used for the experiments in the paper are also available.
 
@@ -72,6 +70,15 @@ visualizeClustering.visualizeClustering(
 - `saveObjectiveFunctionValues: boolean`
  
    Export the values of the objective functions as csv. Default value is `False`.
+
+- `printPermutations: boolean`
+
+   Print in the standard output the row and columns permutations. Default value is `False`.
+
+- `customColorSchemes: boolean`
+
+   Use the custom colour scheme. Default value is `True`.
+
 
 
 ### Notes
