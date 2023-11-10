@@ -7,10 +7,10 @@ from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
 
 """
-This file contains the implementation of the TSPHeuristic algorithm from our paper
+This file contains the implementation of the TSPHeuristic algorithm from the paper
 
-Thibault Marette, Pauli Miettinen, Stefan Neumann:
-Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. (to be published)
+Thibault Marette, Pauli Miettinen, and Stefan Neumann:
+Visualizing Overlapping Biclusterings and Boolean Matrix Factorizations. ECML PKDD 2023, Proceedings, Part I (pp. 743–758). Springer (2023).
 
 
 It also contains an implementation by Thibault Marette and Stefan Neumann of the
