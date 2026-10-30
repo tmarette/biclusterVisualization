@@ -9,7 +9,7 @@ inputFile = "demo/advanced.csv"
 rowCluster = "demo/advanced_rowClusters.csv"
 columnCluster = "demo/advanced_columnClusters.csv"
 
-outputFile = "advanced.pdf"
+outputFile = "plots/demo/advanced.pdf"
 orderingMethod = "TSPheuristic"
 heuristicTime = 4
 plotUnorderedMatrix = True
@@ -22,6 +22,7 @@ visualizeClustering(
     columnClusters=columnCluster,
     orderingMethod=orderingMethod,
     heuristicTime=heuristicTime,
+    clusteringAlgorithm="PCV",
     plotUnorderedMatrix=plotUnorderedMatrix,
     showObjectiveFunctionValues=showObjectiveFunctionValues,
 )

@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mplcolors
 import numpy as np
 import time
+import os
 from .ComputeClusters import cluster
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
@@ -59,7 +60,7 @@ def readClusterFromFile(inputFile):
 def visualizeClustering(
     inputFile,
     outputFile,
-    clusteringAlgorithm="basso",
+    clusteringAlgorithm="PCV",
     nbClusters=5,
     orderingMethod="TSPheuristic",
     rowClusters="",
@@ -68,10 +69,13 @@ def visualizeClustering(
     plotUnorderedMatrix=False,
     showObjectiveFunctionValues=False,
     printPermutations=False,
-    customColorScheme=True,
+    customColorSchemes=True,
 ):
     if type(inputFile) == str:
-        A = np.loadtxt(inputFile)
+        try:
+            A = np.loadtxt(inputFile)
+        except ValueError:
+            A = np.loadtxt(inputFile, delimiter=",")
     else:
         A = np.array(inputFile)
     if type(rowClusters) != type(columnClusters):
@@ -98,7 +102,7 @@ def visualizeClustering(
         plotUnorderedMatrix=plotUnorderedMatrix,
         showObjectiveFunctionValues=showObjectiveFunctionValues,
         printPermutations=printPermutations,
-        customColorScheme=customColorScheme,
+        customColorSchemes=customColorSchemes,
     )
 
 
@@ -113,8 +117,11 @@ def plotClusteredMatrix(
     outputfile=None,
     showObjectiveFunctionValues=False,
     printPermutations=False,
-    customColorScheme=True,
+    customColorSchemes=True,
 ):
+    if outputfile is not None:
+        os.makedirs(os.path.dirname(os.path.abspath(outputfile)), exist_ok=True)
+
     if transpose:
         plotClusteredMatrix(
             A.transpose(),
@@ -125,7 +132,7 @@ def plotClusteredMatrix(
             transpose=False,
             outputfile=outputfile,
             printPermutations=printPermutations,
-            customColorScheme=customColorScheme,
+            customColorSchemes=customColorSchemes,
         )
         return
 
@@ -188,7 +195,7 @@ def plotClusteredMatrix(
         axs=ax2,
         permutationRow=permutationRow,
         permutationCol=permutationCol,
-        useColorScheme=customColorScheme,
+        useColorScheme=customColorSchemes,
     )
 
     if printPermutations:
@@ -910,12 +917,12 @@ class NewBlockBlockMatrix:
         for index in range(firstIndex, lastIndex + 1):
             currentBlock = partialSigmaRow[index]
             sizeRow += len(self.rowBlocks[currentBlock])
-        firstIndex = blocksInRowCluster[0]
-        lastIndex = blocksInRowCluster[-1]
+        firstIndex = blocksInColumnCluster[0]
+        lastIndex = blocksInColumnCluster[-1]
         sizeColumn = 0
         for index in range(firstIndex, lastIndex + 1):
-            currentBlock = partialSigmaRow[index]
-            sizeColumn += len(self.rowBlocks[currentBlock])
+            currentBlock = partialSigmaColumn[index]
+            sizeColumn += len(self.columnBlocks[currentBlock])
         return sizeRow * sizeColumn
 
     def partialproximityScore(self, sigmaRows, sigmaColumn):
@@ -1495,9 +1502,6 @@ class NewBlockBlockMatrix:
                 for i in indexes:
                     mat[i, orphan] = 5 if mat[i, orphan] == 1 else 4
         hexcolors = []
-        np.random.shuffle(mat)
-        np.random.shuffle(mat.T)
-        np.random.shuffle(mat)
         if self.rowOrphanBlocks == [] and self.columnOrphanBlocks == []:
             hexcolors += [
                 "#a6cee3",

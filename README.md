@@ -36,6 +36,19 @@ For Python packages requirements, see `requirements.txt`.
 The code is available in the folder `biclusteringVisualization/`
 Code examples are available in `demo.py`, `demoAdvanced.py` and `demoAdvanced2.py`
 
+To set visualization options from the command line, use `demo_cli.py`:
+
+```bash
+python demo_cli.py --input demo/basic.csv --output plots/demo/basic.pdf \
+  --clustering-algorithm PCV --nb-clusters 5 \
+  --ordering-method TSPheuristic --heuristic-time 20 \
+  --plot-unordered-matrix --show-objective-function-values --print-permutations
+```
+
+Use `python demo_cli.py --help` to see all options. To visualize supplied cluster
+files, pass both `--row-clusters` and `--column-clusters`. Use
+`--no-custom-color-schemes` to disable the custom color scheme.
+
 ## Documentation
 
 ```python
@@ -46,7 +59,6 @@ visualizeClustering.visualizeClustering(
     nbClusters=5,
     rowClusters="",
     columnClusters="",
-    inputIsList=False,
     orderingMethod="TSPheuristic", 
     heuristicTime=20,
     plotUnorderedMatrix=False,
@@ -59,7 +71,7 @@ visualizeClustering.visualizeClustering(
    Location of the input file
 - `outputFile: string`
   
-  Location of the output file 
+  Location of the output plot. Parent directories are created automatically if needed.
 - `clusteringAlgorithm: string`
  
   Biclustering algorithm to use. `PCV` (default) and `basso` are supported.

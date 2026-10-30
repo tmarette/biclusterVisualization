@@ -15,7 +15,7 @@ inputMatrix = [
 rowCluster = [[0, 1, 2, 4], [2, 3]]
 columnCluster = [[0, 1, 5, 6, 9], [2, 3, 4, 5, 6, 8]]
 
-outputFile = "advanced2.pdf"
+outputFile = "plots/demo/advanced2.pdf"
 orderingMethod = "TSPheuristic"
 heuristicTime = 4
 plotUnorderedMatrix = True
@@ -29,5 +29,5 @@ visualizeClustering(
     heuristicTime=heuristicTime,
     plotUnorderedMatrix=plotUnorderedMatrix,
     printPermutations=False,
-    customColorScheme=True,
+    customColorSchemes=True,
 )

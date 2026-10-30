@@ -7,7 +7,7 @@ Basic demonstration, easy to use
 
 
 inputFile = "demo/basic.csv"
-outputFile = "basic.pdf"
+outputFile = "plots/demo/basic.pdf"
 
 visualizeClustering(
     inputFile=inputFile,

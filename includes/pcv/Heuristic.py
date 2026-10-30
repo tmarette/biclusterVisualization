@@ -9,7 +9,7 @@ def estimatePQ(ps, qs, B):
     bestQ = 0
     bestCluster = set()
 
-    minDiff = numpy.Inf
+    minDiff = numpy.inf
 
     for p in ps:
         for q in qs:
