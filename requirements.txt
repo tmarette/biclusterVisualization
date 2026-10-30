@@ -1,18 +1,12 @@
-# Matplotlib 3.7.1 can produce incorrectly rendered PDF color palettes; 3.7.2 fixes it.
 matplotlib>=3.7.2
 
-# Modern NumPy releases (avoids legacy pkgutil/imp build crashes on Python 3.12+)
 numpy>=1.26.4
 
-# Required for loading files and cluster computations
 scipy>=1.11.0
 
-# Machine learning utilities
 scikit-learn>=1.3.0
 
-# Google OR-Tools for TSP heuristic solving
 ortools>=9.8.0
 
-# Build and environment tools
 setuptools>=68.0.0
 wheel>=0.42.0
